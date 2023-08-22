@@ -48,6 +48,14 @@ def jscFlavor = "org.webkit:android-jsc:+"
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
+   signingConfigs {
+        temp {
+            storeFile file('temp-release-key.jks')
+            storePassword 'mypass'
+            keyAlias 'temp'
+            keyPassword 'mypass'
+        }
+    }
     // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
     ndkVersion = "23.1.7779620"
 
@@ -59,6 +67,8 @@ android {
     }
     namespace "com.mendix.nativetemplate"
     defaultConfig {
+        multiDexEnabled true//pdftron
+        manifestPlaceholders = [pdftronLicenseKey:PDFTRON_LICENSE_KEY]//pdftron
         applicationId "com.mendix.nativetemplate"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -89,6 +99,9 @@ android {
         }
     }
     buildTypes {
+    debug {
+        signingConfig signingConfigs.temp
+    }
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -117,6 +130,7 @@ android {
 }
 
 dependencies {
+    implementation "androidx.multidex:multidex:2.0.1"//pdftron
     implementation "androidx.core:core-ktx:1.3.2"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 

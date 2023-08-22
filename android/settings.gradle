@@ -8,4 +8,5 @@ project(':react-native-splash-screen').projectDir = new File(rootProject.project
 include ':mendixnative-release'
 project(':mendixnative-release').projectDir = new File(rootProject.projectDir, '../node_modules/@mendix/native/android')
 
+
 include ':app'

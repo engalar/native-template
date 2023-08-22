@@ -1,6 +1,8 @@
+// native-template\android\app\src\main\java\com\mendix\nativetemplate\MainApplication.java
 package com.mendix.nativetemplate;
 
 import android.app.Activity;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 
@@ -10,11 +12,19 @@ import com.mendix.mendixnative.MendixReactApplication;
 import com.mendix.mendixnative.react.splash.MendixSplashScreenPresenter;
 import com.microsoft.codepush.react.CodePush;
 
+import androidx.multidex.MultiDex;
+// import com.pdftron.reactnative.RNPdftronPackage;
+
 import org.devio.rn.splashscreen.SplashScreen;
 
 import java.util.List;
 
 public class MainApplication extends MendixReactApplication {
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     @Override
     public boolean getUseDeveloperSupport() {
         return false;
@@ -28,6 +38,7 @@ public class MainApplication extends MendixReactApplication {
         // Packages that cannot be autolinked yet can be added manually here, for example:
         // packages.add(new MyReactNativePackage());
         packages.add(new CodePush(getCodePushKey(), getApplicationContext(), BuildConfig.DEBUG));
+        // packages.add(new RNPdftronPackage());
 
         return packages;
     }
