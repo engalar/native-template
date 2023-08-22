@@ -5,6 +5,8 @@
   "scripts": {
     "postinstall": "node patches/apply-patches.js && jetify",
     "android": "react-native run-android --variant=DevDebug",
+    "devtools": "react-devtools",
+    "devmenu": "adb shell input keyevent 82",
     "configure": "native-mobile-toolkit configure --config-path='./config.json' --verbose"
   },
   "dependencies": {
@@ -17,6 +19,7 @@
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-community/push-notification-ios": "1.10.1",
     "@react-native-picker/picker": "^2.4.8",
+    "react-devtools": "^4.28.0",
     "react-native": "0.70.7",
     "react-native-camera": "^3.40.0",
     "react-native-code-push": "7.0.5",
